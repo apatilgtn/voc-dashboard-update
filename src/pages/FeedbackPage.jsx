@@ -10,20 +10,16 @@ function FeedbackPage() {
     company: []
   });
 
-  // Simulate real-time updates
   useEffect(() => {
     const generateFeedback = () => {
       setFeedback(prev => ({
         mentalHealth: [generateSpecializedFeedback.mentalHealth(), ...prev.mentalHealth].slice(0, 10),
         shopping: [generateSpecializedFeedback.shopping(), ...prev.shopping].slice(0, 10),
-        company: [generateSpecializedFeedback.companyReview(), ...prev.company].slice(0, 10)
+        company: [generateSpecializedFeedback.company(), ...prev.company].slice(0, 10)
       }));
     };
 
-    // Initial generation
     generateFeedback();
-
-    // Update every 5 seconds
     const interval = setInterval(generateFeedback, 5000);
     return () => clearInterval(interval);
   }, []);
@@ -31,7 +27,7 @@ function FeedbackPage() {
   const MentalHealthFeedback = ({ data }) => (
     <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
       {data.map((item, index) => (
-        <div key={index} className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+        <div key={index} className="bg-white rounded-lg shadow p-6">
           <div className="flex justify-between items-start mb-4">
             <div>
               <h3 className="text-lg font-semibold text-gray-900">{item.appName}</h3>
@@ -49,7 +45,7 @@ function FeedbackPage() {
           </div>
           <div className="mt-4 pt-4 border-t border-gray-100">
             <div className="flex justify-between items-center">
-              <span className="text-sm text-gray-500">Recommendation Score: {item.recommendationScore}/10</span>
+              <span className="text-sm text-gray-500">Score: {item.recommendationScore}/10</span>
               <span className="text-xs text-gray-400">
                 {new Date(item.timestamp).toLocaleTimeString()}
               </span>
@@ -63,7 +59,7 @@ function FeedbackPage() {
   const ShoppingFeedback = ({ data }) => (
     <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
       {data.map((item, index) => (
-        <div key={index} className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+        <div key={index} className="bg-white rounded-lg shadow p-6">
           <div className="flex justify-between items-start mb-4">
             <div>
               <h3 className="text-lg font-semibold text-gray-900">{item.storeName}</h3>
@@ -78,10 +74,10 @@ function FeedbackPage() {
             </span>
           </div>
           <div className="space-y-2">
-            <p className="text-sm"><span className="font-medium">Order Amount:</span> ${item.orderAmount}</p>
+            <p className="text-sm"><span className="font-medium">Amount:</span> ${item.orderAmount}</p>
             <p className="text-sm"><span className="font-medium">Delivery:</span> {item.deliveryService}</p>
             <p className="text-sm"><span className="font-medium">Payment:</span> {item.paymentMethod}</p>
-            <p className="text-sm"><span className="font-medium">Delivery Time:</span> {item.deliveryTime}</p>
+            <p className="text-sm"><span className="font-medium">Time:</span> {item.deliveryTime}</p>
           </div>
           <div className="mt-4 pt-4 border-t border-gray-100">
             <div className="flex justify-between items-center">
@@ -99,7 +95,7 @@ function FeedbackPage() {
   const CompanyFeedback = ({ data }) => (
     <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
       {data.map((item, index) => (
-        <div key={index} className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+        <div key={index} className="bg-white rounded-lg shadow p-6">
           <div className="flex justify-between items-start mb-4">
             <div>
               <h3 className="text-lg font-semibold text-gray-900">{item.companyName}</h3>
@@ -118,16 +114,13 @@ function FeedbackPage() {
             <div className="bg-red-50 p-2 rounded">
               <p className="text-sm text-red-800"><span className="font-medium">Cons:</span> {item.cons}</p>
             </div>
-            <p className="text-sm"><span className="font-medium">Years at Company:</span> {item.yearsAtCompany}</p>
+            <p className="text-sm"><span className="font-medium">Years:</span> {item.yearsAtCompany}</p>
           </div>
           <div className="mt-4 pt-4 border-t border-gray-100">
             <div className="flex justify-between items-center">
-              <div>
-                <span className="text-sm text-gray-500">Would Recommend: </span>
-                <span className={item.recommendToFriend ? 'text-green-600' : 'text-red-600'}>
-                  {item.recommendToFriend ? 'Yes' : 'No'}
-                </span>
-              </div>
+              <span className={item.recommendToFriend ? 'text-green-600' : 'text-red-600'}>
+                {item.recommendToFriend ? 'Recommended' : 'Not Recommended'}
+              </span>
               <span className="text-xs text-gray-400">
                 {new Date(item.timestamp).toLocaleTimeString()}
               </span>
