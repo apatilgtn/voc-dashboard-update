@@ -14,7 +14,6 @@ const LoginPage = () => {
   const [isLockedOut, setIsLockedOut] = useState(false);
   const [countdown, setCountdown] = useState(0);
 
-  // Statistics counter animation
   const [stats] = useState({
     users: 15000,
     feedback: 50000,
