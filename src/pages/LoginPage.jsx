@@ -25,13 +25,13 @@ const LoginPage = () => {
     {
       icon: <Activity className="h-6 w-6" />,
       title: "Real-time Analytics",
-      description: "Monitor customer feedback and sentiment in real-time",
+      description: "Monitor customers feedback and sentiment in real-time",
       color: "text-blue-500"
     },
     {
       icon: <Users className="h-6 w-6" />,
       title: "Customer Insights",
-      description: "Deep dive into customer behavior and preferences",
+      description: "Deep dive into customers behavior and preferences",
       color: "text-green-500"
     },
     {
